@@ -1,0 +1,12 @@
+game.h
+mine1.c
+mine2.c
+missile.c
+ship.c
+tunnel.c
+.settings/language.settings.xml
+qk/gnu/dbg/
+qk/gnu/spy/
+qv/gnu/dbg/
+qv/gnu/spy/
+
