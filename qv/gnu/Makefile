@@ -48,7 +48,7 @@
 #    https://sourceforge.net/projects/qpc/files/QTools/
 #
 # Gnu tool chain to use
-GNU_ARM := /usr
+GNU_ARM := /opt/gnu-arm-none-eabi/current
 QPC := ../../qpc
 #-----------------------------------------------------------------------------
 # project name
