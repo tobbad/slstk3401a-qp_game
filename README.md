@@ -5,7 +5,7 @@ This is the working project with quantum Leaps qpc frame work which will be used
 
 Please checkout the [source](https://github.com/tobbad/slstk3401a-qp_game) with:
 
-```javascript 
+```bash 
 git clone --recurse-submodules https://github.com/tobbad/slstk3401a-qp_game.git
 ```
 
