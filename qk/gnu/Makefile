@@ -47,7 +47,7 @@
 # is included in the Qtools collection for Windows, see:
 #    https://sourceforge.net/projects/qpc/files/QTools/
 #
-GNU_ARM := /usr
+GNU_ARM := /opt/gnu-arm-none-eabi/current
 QPC := ../../../../../qp/qpc
 
 #-----------------------------------------------------------------------------
@@ -224,11 +224,11 @@ ASFLAGS = -g $(ARM_CPU) $(ARM_FPU) $(ASM_CPU) $(ASM_FPU)
 
 CFLAGS = -c -g $(ARM_CPU) $(ARM_FPU) $(FLOAT_ABI) -mthumb -Wall \
 	-ffunction-sections -fdata-sections \
-	-O $(INCLUDES) $(DEFINES) -DQ_SPY
+	-O0 $(INCLUDES) $(DEFINES) -DQ_SPY
 
 CPPFLAGS = -c -g $(ARM_CPU) $(ARM_FPU) $(FLOAT_ABI) -mthumb -Wall \
 	-ffunction-sections -fdata-sections -fno-rtti -fno-exceptions \
-	-O $(INCLUDES) $(DEFINES) -DQ_SPY
+	-O0 $(INCLUDES) $(DEFINES) -DQ_SPY
 
 else # default Debug configuration ..........................................
 
@@ -238,11 +238,11 @@ ASFLAGS = -g $(ARM_CPU) $(ARM_FPU) $(ASM_CPU) $(ASM_FPU)
 
 CFLAGS = -c -g $(ARM_CPU) $(ARM_FPU) $(FLOAT_ABI) -mthumb -Wall \
 	-ffunction-sections -fdata-sections \
-	-O $(INCLUDES) $(DEFINES)
+	-O0 $(INCLUDES) $(DEFINES)
 
 CPPFLAGS = -c -g $(ARM_CPU) $(ARM_FPU) $(FLOAT_ABI) -mthumb -Wall \
 	-ffunction-sections -fdata-sections -fno-rtti -fno-exceptions \
-	-O $(INCLUDES) $(DEFINES)
+	-O0 $(INCLUDES) $(DEFINES)
 
 endif # ......................................................................
 
