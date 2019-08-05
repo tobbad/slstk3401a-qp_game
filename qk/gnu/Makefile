@@ -48,7 +48,7 @@
 #    https://sourceforge.net/projects/qpc/files/QTools/
 #
 GNU_ARM := /opt/gnu-arm-none-eabi/current
-QPC := ../../../../../qp/qpc
+QPC := ../../qpc
 
 #-----------------------------------------------------------------------------
 # project name
