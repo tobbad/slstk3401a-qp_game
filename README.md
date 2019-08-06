@@ -42,3 +42,4 @@ GNU_ARM := ${XPACKS_REPO_FOLDER}/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.7.1/
 ```
 
 # Debug
+Connect the development kit bz USB to the PC. Start Debugging by ```Run->Debug Configuiration``` and then chossing ```GDB SEGGER J-Link Debugging```. On the Main Tab choose the elf file to debug (Maybe press ```Search Project```). in The Debugger Tab enter ```EFM32PG1B200F256GM48``` in the ```Device name``` field. Mayb eyou have to prepend the text in the ```Executable name``` filed with the location of your GNU Toolchain (eg. ```${XPACKS_REPO_FOLDER}/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.7.1/.content/``` YMMV). Press Apply and then Debug.
