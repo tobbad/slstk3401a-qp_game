@@ -44,3 +44,6 @@ Press CTRL-B to start the build.
 
 # Debug
 Connect the development kit by USB to the PC. Start Debugging by ```Run->Debug Configuiration``` and then chossing ```GDB SEGGER J-Link Debugging```. On the Main Tab choose the elf file to debug (either the qk or the qv variant, maybe press ```Search Project```). in The Debugger Tab enter ```EFM32PG1B200F256GM48``` in the ```Device name``` field. Maybe you have to prepend the text in the ```Executable name``` filed with the location of your GNU Toolchain (eg. ```${XPACKS_REPO_FOLDER}/@gnu-mcu-eclipse/arm-none-eabi-gcc/8.2.1-1.7.1/.content/``` YMMV). Press Apply and then Debug.
+
+# Final Remarks
+You may ask yourself why not using the Silicon Lab Tool Symplicity Studio. I have no direct opposition against this tool. However setting up Eclipse the way described here you have an installation which you can as well use to compile software for many different MCUs of different vendors. If you use a Vendor distributed variant of Eclipse (Simplicity Studio, Code Composer, TrueStudio ...) you may have more vendor specific feature but loose the flexibility in choosing an MCU. (Vendor Lockin).
