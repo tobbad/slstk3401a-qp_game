@@ -185,13 +185,11 @@
                                 								
                                 <option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="ilg.gnuarmeclipse.managedbuild.cross.option.assembler.include.paths.1767566603" name="Include paths (-I)" superClass="ilg.gnuarmeclipse.managedbuild.cross.option.assembler.include.paths" valueType="includePath">
                                     									
-                                    <listOptionValue builtIn="false" value="../../../../../../qp/qpc/3rd_party/efm32pg1b"/>
-                                    									
-                                    <listOptionValue builtIn="false" value="/home/badi/projekte/sw/embedded/qp/qpc/3rd_party/efm32pg1b"/>
-                                    									
                                     <listOptionValue builtIn="false" value="&quot;${ProjDirPath}/&quot;"/>
                                     									
                                     <listOptionValue builtIn="false" value="&quot;${ProjDirPath}/qpc/3rd_party/efm32pg1b&quot;"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="&quot;${ProjDirPath}/lib/inc&quot;"/>
                                     								
                                 </option>
                                 								
@@ -209,13 +207,11 @@
                                 								
                                 <option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="ilg.gnuarmeclipse.managedbuild.cross.option.c.compiler.include.paths.2019341321" name="Include paths (-I)" superClass="ilg.gnuarmeclipse.managedbuild.cross.option.c.compiler.include.paths" useByScannerDiscovery="true" valueType="includePath">
                                     									
-                                    <listOptionValue builtIn="false" value="../../../../../../qp/qpc/3rd_party/efm32pg1b"/>
-                                    									
-                                    <listOptionValue builtIn="false" value="/home/badi/projekte/sw/embedded/qp/qpc/3rd_party/efm32pg1b"/>
-                                    									
                                     <listOptionValue builtIn="false" value="&quot;${ProjDirPath}/&quot;"/>
                                     									
                                     <listOptionValue builtIn="false" value="&quot;${ProjDirPath}/qpc/3rd_party/efm32pg1b&quot;"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="&quot;${ProjDirPath}/lib/inc&quot;"/>
                                     								
                                 </option>
                                 								
@@ -233,13 +229,11 @@
                                 								
                                 <option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="ilg.gnuarmeclipse.managedbuild.cross.option.cpp.compiler.include.paths.1877338359" name="Include paths (-I)" superClass="ilg.gnuarmeclipse.managedbuild.cross.option.cpp.compiler.include.paths" useByScannerDiscovery="true" valueType="includePath">
                                     									
-                                    <listOptionValue builtIn="false" value="../../../../../../qp/qpc/3rd_party/efm32pg1b"/>
-                                    									
-                                    <listOptionValue builtIn="false" value="/home/badi/projekte/sw/embedded/qp/qpc/3rd_party/efm32pg1b"/>
-                                    									
                                     <listOptionValue builtIn="false" value="&quot;${ProjDirPath}/&quot;"/>
                                     									
                                     <listOptionValue builtIn="false" value="&quot;${ProjDirPath}/qpc/3rd_party/efm32pg1b&quot;"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="&quot;${ProjDirPath}/lib/inc&quot;"/>
                                     								
                                 </option>
                                 								
@@ -498,6 +492,8 @@
                                     <listOptionValue builtIn="false" value="&quot;${ProjDirPath}/&quot;"/>
                                     									
                                     <listOptionValue builtIn="false" value="&quot;${ProjDirPath}/qpc/3rd_party/efm32pg1b&quot;"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="&quot;${ProjDirPath}/lib/inc&quot;"/>
                                     								
                                 </option>
                                 								
@@ -518,6 +514,8 @@
                                     <listOptionValue builtIn="false" value="&quot;${ProjDirPath}/&quot;"/>
                                     									
                                     <listOptionValue builtIn="false" value="&quot;${ProjDirPath}/qpc/3rd_party/efm32pg1b&quot;"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="&quot;${ProjDirPath}/lib/inc&quot;"/>
                                     								
                                 </option>
                                 								
@@ -538,6 +536,8 @@
                                     <listOptionValue builtIn="false" value="&quot;${ProjDirPath}/&quot;"/>
                                     									
                                     <listOptionValue builtIn="false" value="&quot;${ProjDirPath}/qpc/3rd_party/efm32pg1b&quot;"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="&quot;${ProjDirPath}/lib/inc&quot;"/>
                                     								
                                 </option>
                                 								

@@ -76,7 +76,8 @@ VPATH = \
 	$(QPC)/src/qs \
 	$(QP_PORT_DIR) \
 	$(QPC)/3rd_party/efm32pg1b \
-	$(QPC)/3rd_party/efm32pg1b/gnu
+	$(QPC)/3rd_party/efm32pg1b/gnu \
+	../../lib/src
 
 # list of all include directories needed by this project
 INCLUDES  = \
@@ -85,7 +86,8 @@ INCLUDES  = \
 	-I$(QPC)/src \
 	-I$(QP_PORT_DIR) \
 	-I$(QPC)/3rd_party/CMSIS/Include \
-	-I$(QPC)/3rd_party/efm32pg1b
+	-I$(QPC)/3rd_party/efm32pg1b \
+	-I../../lib/inc
 
 #-----------------------------------------------------------------------------
 # files
@@ -105,6 +107,7 @@ C_SRCS := \
 	tunnel.c \
 	startup_efm32pg1b.c \
 	system_efm32pg1b.c \
+	em_acmp.c \
 	em_cmu.c \
 	em_emu.c \
 	em_gpio.c \
@@ -115,7 +118,8 @@ C_SRCS := \
 	em_usart.c \
 	udelay.c \
 	display_ls013b7dh03.c \
-	displaypalemlib.c
+	displaypalemlib.c \
+	capsense.c
 
 # C++ source files
 CPP_SRCS :=

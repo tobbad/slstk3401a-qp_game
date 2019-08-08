@@ -37,6 +37,10 @@
 #define BSP_TICKS_PER_SEC    33U
 #define BSP_SCREEN_WIDTH     128U
 #define BSP_SCREEN_HEIGHT    128U
+/*
+ * Get touch state (can be OR-ed
+ */
+typedef enum {TOUCH_NONE=0, TOUCH_LEFT=1, TOUCH_RIGHT=2} touch_state_t;
 
 void BSP_init(void);
 void BSP_terminate(int16_t result);
@@ -48,6 +52,8 @@ void BSP_paintString(uint8_t x, uint8_t y, char const *str);
 void BSP_paintBitmap(uint8_t x, uint8_t y, uint8_t bmp_id);
 void BSP_advanceWalls(uint8_t top, uint8_t bottom);
 void BSP_updateScore(uint16_t score);
+
+touch_state_t BSP_getTouchState(void);
 
 bool BSP_isThrottle(void); /* is the throttle button depressed? */
 bool BSP_doBitmapsOverlap(uint8_t bmp_id1, uint8_t x1, uint8_t y1,

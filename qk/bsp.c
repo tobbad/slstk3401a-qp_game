@@ -30,6 +30,13 @@
 * Contact information:
 * https://state-machine.com
 * mailto:info@state-machine.com
+*
+* ***************************************************************************
+*
+* Extended by touch button code by
+* Tobias Badertscher
+* Baerospace (2019)
+*
 *****************************************************************************/
 #include "qpc.h"
 #include "game.h"
@@ -42,6 +49,7 @@
 #include "em_usart.h"   /* USART (SiLabs) */
 #include "display_ls013b7dh03.h" /* LS013b7DH03 display (SiLabs/QL) */
 /* add other drivers if necessary... */
+#include "capsense.h"
 
 Q_DEFINE_THIS_FILE
 
@@ -79,6 +87,15 @@ void USART0_RX_IRQHandler(void);
 #define PB_PORT     gpioPortF
 #define PB0_PIN     6
 #define PB1_PIN     7
+
+/* Cap sense related */
+#define CAPSENSE_UPDATE_PERIOD  5
+
+/*
+ *
+ */
+static bool bspInitiated = false;
+
 
 /* LCD geometry and frame buffer */
 static uint32_t l_fb[BSP_SCREEN_HEIGHT + 1][BSP_SCREEN_WIDTH / 32U];
@@ -154,6 +171,19 @@ void SysTick_Handler(void) {
        }
     }
 
+    /*
+     * Cap sense stuff
+     */
+    if (bspInitiated){
+        static int capsenseUpdateCount = 0;
+
+        if (++capsenseUpdateCount == CAPSENSE_UPDATE_PERIOD) {
+            capsenseUpdateCount = 0;
+            /* Update capsense module */
+            CAPSENSE_Sense();
+        }
+    }
+
     QK_ISR_EXIT();  /* inform QK about exiting an ISR */
 }
 /*..........................................................................*/
@@ -219,6 +249,8 @@ void BSP_init(void) {
     */
     FPU->FPCCR &= ~((1U << FPU_FPCCR_ASPEN_Pos) | (1U << FPU_FPCCR_LSPEN_Pos));
 #endif
+    /* Start capacitive sense buttons */
+    CAPSENSE_Init();
 
     /* enable clock for to the peripherals used by this application... */
     CMU_ClockEnable(cmuClock_HFPER, true);
@@ -250,6 +282,8 @@ void BSP_init(void) {
     QS_OBJ_DICTIONARY(&l_GPIO_EVEN_IRQHandler);
     QS_USR_DICTIONARY(SCORE_STAT);
     QS_USR_DICTIONARY(COMMAND_STAT);
+
+    bspInitiated = true;
 }
 
 /*..........................................................................*/
@@ -282,6 +316,20 @@ void BSP_clearWalls() {
 bool BSP_isThrottle(void) { /* is the throttle button depressed? */
     return (GPIO->P[PB_PORT].DIN & (1U << PB1_PIN)) == 0U;
 }
+
+/*..........................................................................*/
+touch_state_t BSP_getTouchState(void)
+{
+    touch_state_t state = TOUCH_NONE;
+    /* Return state of touch buttons */
+    if (CAPSENSE_getPressed(BUTTON0_CHANNEL)) {
+        state |= TOUCH_LEFT;
+    } else if (CAPSENSE_getPressed(BUTTON1_CHANNEL)) {
+        state |= TOUCH_RIGHT;
+    }
+    return state;
+}
+
 /*..........................................................................*/
 void BSP_paintString(uint8_t x, uint8_t y, char const *str) {
     static uint8_t const font5x7[95][7] = {
