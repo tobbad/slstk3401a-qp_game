@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<model version="4.5.0" links="0">
+<model version="4.5.1" links="0">
  <documentation>&quot;Fly 'n' Shoot&quot; game model from Chapters 1 &amp; 9 of PSiCC2
 
 NOTE: Requries QP6.</documentation>
@@ -514,12 +514,15 @@ me-&gt;y = (GAME_SHIP_Y &lt;&lt; 2);</entry>
       <tran trig="TIME_TICK">
        <action>ObjectImageEvt *oie;
 
-if (BSP_isThrottle()) {
+touch_state_t currentTouchState;
+currentTouchState = BSP_getTouchState();
+
+if (currentTouchState == TOUCH_LEFT) {
     if (me-&gt;y &gt; 0) {
         me-&gt;y -= 1U;
     }
 }
-else {
+else if (currentTouchState == TOUCH_RIGHT){
     if (me-&gt;y &lt; (GAME_TUNNEL_HEIGHT &lt;&lt; 2)) {
         me-&gt;y += 1U;
     }
@@ -547,7 +550,10 @@ if ((me-&gt;score % 10U) == 0U) { /* is the score &quot;round&quot;? */
        <action>ObjectPosEvt *ope = Q_NEW(ObjectPosEvt, MISSILE_FIRE_SIG);
 ope-&gt;x = me-&gt;x;
 ope-&gt;y = (me-&gt;y &gt;&gt; 2) + SHIP_HEIGHT - 1U;
-QACTIVE_POST(AO_Missile, (QEvt *)ope, me);</action>
+QACTIVE_POST(AO_Missile, (QEvt *)ope, me);
+
+
+</action>
        <tran_glyph conn="4,30,3,-1,16">
         <action box="0,-2,13,2"/>
        </tran_glyph>
@@ -621,13 +627,16 @@ QACTIVE_POST(AO_Tunnel, (QEvt *)gameOver, me);</action>
     <initial target="../1">
      <action>(void)e;
 QActive_subscribe(&amp;me-&gt;super, TIME_TICK_SIG);
+QActive_subscribe(&amp;me-&gt;super, MISSILE_DETONATE_SIG);
+
 
 /* local signals */
 QS_SIG_DICTIONARY(MISSILE_FIRE_SIG,   me);
 QS_SIG_DICTIONARY(HIT_WALL_SIG,       me);
-QS_SIG_DICTIONARY(DESTROYED_MINE_SIG, me);</action>
+QS_SIG_DICTIONARY(DESTROYED_MINE_SIG, me);
+QS_SIG_DICTIONARY(MISSILE_DETONATE_SIG, me);</action>
      <initial_glyph conn="3,3,5,1,35,4,-2">
-      <action box="1,-2,6,2"/>
+      <action box="1,-2,10,2"/>
      </initial_glyph>
     </initial>
     <state name="armed">
@@ -677,6 +686,11 @@ QACTIVE_POST(AO_Tunnel, (QEvt *)oie, me);</action>
        <action box="0,-2,15,2"/>
       </tran_glyph>
      </tran>
+     <tran trig="MISSILE_DETONATE" target="../../4">
+      <tran_glyph conn="36,22,1,0,22,13">
+       <action box="0,-2,22,2"/>
+      </tran_glyph>
+     </tran>
      <state_glyph node="3,15,33,20"/>
     </state>
     <state name="exploding">
@@ -713,7 +727,41 @@ QACTIVE_POST(AO_Tunnel, (QEvt *)oie, me);</action>
       <entry box="1,2,14,4"/>
      </state_glyph>
     </state>
-    <state_diagram size="46,55"/>
+    <state name="detonation">
+     <entry>me-&gt;exp_ctr = 0U;</entry>
+     <tran trig="TIME_TICK">
+      <choice>
+       <guard>(me-&gt;x &gt;= GAME_SPEED_X) &amp;&amp; (me-&gt;exp_ctr &lt; 15U)</guard>
+       <action brief="...">ObjectImageEvt *oie;
+
+++me-&gt;exp_ctr;           /* advance the explosion counter */
+me-&gt;x -= GAME_SPEED_X;   /* move the explosion by one step */
+
+/* tell the Tunnel to render the current stage of Explosion */
+oie = Q_NEW(ObjectImageEvt, EXPLOSION_SIG);
+oie-&gt;x   = me-&gt;x + 3U;   /* x-pos of explosion */
+oie-&gt;y   = (int8_t)((int)me-&gt;y - 4U); /* y-pos */
+oie-&gt;bmp = EXPLOSION0_BMP + (me-&gt;exp_ctr &gt;&gt; 2);
+QACTIVE_POST(AO_Tunnel, (QEvt *)oie, me);</action>
+       <choice_glyph conn="58,44,5,-1,20">
+        <action box="1,0,19,4"/>
+       </choice_glyph>
+      </choice>
+      <choice target="../../../1">
+       <guard brief="else"/>
+       <choice_glyph conn="58,44,4,1,5,26,-41,-48">
+        <action box="1,5,7,2"/>
+       </choice_glyph>
+      </choice>
+      <tran_glyph conn="49,44,3,-1,9">
+       <action box="0,-2,8,2"/>
+      </tran_glyph>
+     </tran>
+     <state_glyph node="49,35,33,16">
+      <entry box="1,2,6,2"/>
+     </state_glyph>
+    </state>
+    <state_diagram size="87,55"/>
    </statechart>
   </class>
   <class name="Mine1" superclass="qpc::QHsm">
@@ -1115,6 +1163,7 @@ return (QHsm *)me;</code>
 enum GameSignals { /* signals used in the game */
     TIME_TICK_SIG = Q_USER_SIG, /* published from tick ISR */
     PLAYER_TRIGGER_SIG, /* published by Player (ISR) to trigger the Missile */
+    MISSILE_DETONATE_SIG,
     PLAYER_QUIT_SIG,    /* published by Player (ISR) to quit the game */
     GAME_OVER_SIG,      /* published by Ship when it finishes exploding */
 

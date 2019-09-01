@@ -169,7 +169,14 @@ void SysTick_Handler(void) {
                QF_PUBLISH(&trigEvt, &l_SysTick_Handler);
            }
        }
+       if ((tmp & (1U << PB1_PIN)) != 0U) {  /* debounced PB0 state changed? */
+           if ((buttons.depressed & (1U << PB1_PIN)) != 0U) {/*PB0 depressed?*/
+               static QEvt const trigEvt = { MISSILE_DETONATE_SIG, 0U, 0U};
+               QF_PUBLISH(&trigEvt, &l_SysTick_Handler);
+           }
+       }
     }
+
 
     /*
      * Cap sense stuff
